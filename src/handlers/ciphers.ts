@@ -10,10 +10,10 @@ function formatAttachments(attachments: Attachment[]): any[] | null {
   return attachments.map(a => ({
     id: a.id,
     fileName: a.fileName,
-    size: String(a.size),
+    size: Number(a.size) || 0,  // Android expects Int, not String
     sizeName: a.sizeName,
     key: a.key,
-    url: null,
+    url: `/api/ciphers/${a.cipherId}/attachment/${a.id}`,  // Android requires non-null url!
     object: 'attachment',
   }));
 }

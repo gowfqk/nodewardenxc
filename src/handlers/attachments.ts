@@ -196,7 +196,7 @@ export async function handleGetAttachment(
     url: downloadUrl,
     fileName: attachment.fileName,
     key: attachment.key,
-    size: String(attachment.size),
+    size: Number(attachment.size) || 0,
     sizeName: attachment.sizeName,
   });
 }
@@ -332,10 +332,10 @@ function formatCipherResponse(cipher: Cipher, attachments: Attachment[]): any {
     attachments: attachments.length > 0 ? attachments.map(a => ({
       id: a.id,
       fileName: a.fileName,
-      size: String(a.size),
+      size: Number(a.size) || 0,
       sizeName: a.sizeName,
       key: a.key,
-      url: null,
+      url: `/api/ciphers/${a.cipherId}/attachment/${a.id}`,
       object: 'attachment',
     })) : null,
     key: cipher.key,
